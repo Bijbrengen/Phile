@@ -1,0 +1,9 @@
+{
+  "name": "phile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zelfstandige statische Phile-leerbox",
+  "scripts": {
+    "test": "node --test"
+  }
+}

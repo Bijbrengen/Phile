@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phile | Leerpret Leerbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="runtimeStatus" class="runtime-status" role="status">Verbinden met LeerpretEngine…</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <p class="eyebrow brand-prefix">Leerbox</p>
+        <div class="hover-detail">
+          <h1 class="hover-trigger brand-title" tabindex="0">Phile</h1>
+          <div class="hover-bubble hover-bubble-wide">
+            <p>Voorkom een file in het brein: speel filosoofkaarten als Breinkaart of zet hun kracht in om het raster te beinvloeden.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="topbar-stats" aria-label="Spelstatus">
+        <div class="indicator-chip">
+          <span>Ronde</span>
+          <strong id="roundValue">1</strong>
+        </div>
+        <div class="indicator-chip">
+          <span>Score</span>
+          <strong id="scoreValue">0</strong>
+        </div>
+        <div class="indicator-chip">
+          <span>Neuronen</span>
+          <strong id="neuronValue">0</strong>
+        </div>
+        <div class="indicator-chip">
+          <span>Synapsen</span>
+          <strong id="synapseValue">0</strong>
+        </div>
+        <div class="indicator-chip">
+          <span>Doelpad</span>
+          <strong id="variationValue">256</strong>
+        </div>
+      </section>
+
+      <div class="topbar-actions">
+        <button
+          id="menuButton"
+          class="ghost-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="menuPanel"
+        >
+          Menu
+        </button>
+      </div>
+    </header>
+
+    <section id="menuPanel" class="drawer-panel menu-panel" hidden>
+      <article class="drawer-card drawer-card-wide">
+        <p class="eyebrow">Instellingen</p>
+        <h2>Digitale leerbox</h2>
+        <div class="setting-grid">
+          <label class="setting-field">
+            <span>Kaarten per ronde</span>
+            <select id="candidateCountSelect">
+              <option value="4">4</option>
+              <option value="8" selected>8</option>
+              <option value="16">16</option>
+            </select>
+          </label>
+
+          <label class="setting-field">
+            <span>Rastergrootte</span>
+            <select id="boardSizeSelect">
+              <option value="16" selected>16 x 16</option>
+              <option value="32">32 x 32</option>
+              <option value="64">64 x 64</option>
+            </select>
+          </label>
+
+          <label class="setting-field">
+            <span>Startneuronen</span>
+            <select id="startNeuronCountSelect">
+              <option value="8">8</option>
+              <option value="10" selected>10</option>
+              <option value="12">12</option>
+              <option value="16">16</option>
+            </select>
+          </label>
+
+          <label class="setting-field">
+            <span>Filelimiet</span>
+            <select id="burnoutLimitSelect">
+              <option value="2">2 - ezel</option>
+              <option value="3" selected>3 - scheepsrecht</option>
+              <option value="5">5 - ruim</option>
+            </select>
+          </label>
+
+          <label class="setting-toggle">
+            <input id="rotationToggle" type="checkbox" checked>
+            <span>Gedraaide kaarten toestaan</span>
+          </label>
+        </div>
+        <div id="variationNote" class="setting-note"></div>
+      </article>
+
+      <article class="drawer-card">
+        <p class="eyebrow">Help</p>
+        <h2>Speluitleg</h2>
+        <p>
+          Het spel begint met een klein verbonden brein en een eenzame geactiveerde neuron ver weg. Kies een kaart uit je hand
+          en beslis daarna of je haar als Breinkaart legt of als Actiekaart inzet.
+        </p>
+        <p class="drawer-copy">
+          Sommige kaarten bouwen groen verder richting het doel, andere kaarten kleuren een bestaand patroon steeds roder.
+          Zo ontstaat een file in het brein: eerst licht rood, dan donkerder, en voorbij de filelimiet verlies je door verstarring.
+          Phile verwijst hier dus ook naar filevrij leren kiezen.
+        </p>
+      </article>
+
+      <article class="drawer-card">
+        <p class="eyebrow">Leerbox</p>
+        <h2>Fysieke twin</h2>
+        <p>
+          Denk deze interface als digitale twin van een bordspel met filosoofkaarten, losse neuronen en rechte of diagonale
+          synapsstukken die in lagen op elkaar kunnen worden gestapeld.
+        </p>
+        <ul class="help-list">
+          <li>Meer kaarten per ronde maken de keuze tussen miniaturen lastiger.</li>
+          <li>Een groter raster legt de eenzame neuron vaak verder weg.</li>
+          <li>Meer startneuronen geven meer bestaande deelstructuren om uit te lezen.</li>
+          <li>Een lage filelimiet maakt vastroesten sneller fataal.</li>
+          <li>Rotatie laat dezelfde deelstructuur onder een andere orientatie terugkomen.</li>
+        </ul>
+      </article>
+
+      <article class="drawer-card">
+        <p class="eyebrow">Status</p>
+        <h2>Laatste trek en signaal</h2>
+        <div id="selectedCardSummary" class="choice-summary">
+          Nog geen kaart gespeeld. Kies links een kaart en beslis daarna: Breinkaart of Actiekaart.
+        </div>
+        <div id="feedbackBox" class="feedback-box">
+          Het raster laat alleen lokale buurverbindingen toe. Gebruik kaarten als neuronpatroon of als filosofische kracht.
+        </div>
+      </article>
+    </section>
+
+    <main class="main-stage">
+      <aside class="card-rail">
+        <div class="rail-head">
+          <div class="hover-detail">
+            <div class="hover-trigger section-word" tabindex="0">Kaarten</div>
+            <div class="hover-bubble">
+              <p id="cardRailMeta">Kies een kaart en bepaal of zij bouwt of ingrijpt.</p>
+            </div>
+          </div>
+        </div>
+        <div id="candidateRail" class="candidate-rail"></div>
+      </aside>
+
+      <section class="board-panel">
+        <div class="board-head">
+          <div class="hover-detail">
+            <div class="hover-trigger board-word" tabindex="0">Rasterbrein</div>
+            <div class="hover-bubble hover-bubble-wide">
+              <p class="hover-kicker">Spelbord</p>
+              <p id="roundMeta">Ronde 1. Zoek de kaart die nog niet in dit bord besloten ligt.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="board-frame">
+          <svg id="boardSvg" viewBox="0 0 1000 1000" aria-label="Rasterbord met neuronen en synapsen"></svg>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="runtime-config.js"></script>
+  <script src="bootstrap.js"></script>
+</body>
+</html>
