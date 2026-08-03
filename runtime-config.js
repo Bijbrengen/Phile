@@ -1,4 +1,4 @@
 window.PHILE_CONFIG = Object.freeze({
-  apiBase: "https://api.leerpretpark.nl/api",
-  clientId: "phile"
+  "apiBase": "http://127.0.0.1:47111/api",
+  "clientId": "phile"
 });
