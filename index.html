@@ -4,40 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phile | Leerpret Leerbox</title>
+  <link rel="stylesheet" href="leerpret-theme.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div id="runtimeStatus" class="runtime-status" role="status">Verbinden met LeerpretEngine…</div>
+<body class="lego-stud-grid">
+  <div id="runtimeStatus" class="runtime-status lcars-capsule" role="status">Verbinden met LeerpretEngine…</div>
   <div class="app-shell">
-    <header class="topbar">
+    <header class="topbar lcars-capsule">
       <div class="topbar-brand">
         <p class="eyebrow brand-prefix">Leerbox</p>
         <div class="hover-detail">
           <h1 class="hover-trigger brand-title" tabindex="0">Phile</h1>
-          <div class="hover-bubble hover-bubble-wide">
-            <p>Voorkom een file in het brein: speel filosoofkaarten als Breinkaart of zet hun kracht in om het raster te beinvloeden.</p>
+          <div class="hover-bubble hover-bubble-wide toyist-card">
+            <p>Voorkom een file in het brein: speel filosoofkaarten als Breinkaart of zet hun kracht in om het raster te beïnvloeden.</p>
           </div>
         </div>
       </div>
 
       <section class="topbar-stats" aria-label="Spelstatus">
-        <div class="indicator-chip">
+        <div class="indicator-chip lcars-data-segment">
           <span>Ronde</span>
           <strong id="roundValue">1</strong>
         </div>
-        <div class="indicator-chip">
+        <div class="indicator-chip lcars-data-segment">
           <span>Score</span>
           <strong id="scoreValue">0</strong>
         </div>
-        <div class="indicator-chip">
+        <div class="indicator-chip lcars-data-segment">
           <span>Neuronen</span>
           <strong id="neuronValue">0</strong>
         </div>
-        <div class="indicator-chip">
+        <div class="indicator-chip lcars-data-segment">
           <span>Synapsen</span>
           <strong id="synapseValue">0</strong>
         </div>
-        <div class="indicator-chip">
+        <div class="indicator-chip lcars-data-segment">
           <span>Doelpad</span>
           <strong id="variationValue">256</strong>
         </div>
@@ -46,7 +47,7 @@
       <div class="topbar-actions">
         <button
           id="menuButton"
-          class="ghost-button"
+          class="ghost-button lcars-pill-right"
           type="button"
           aria-expanded="false"
           aria-controls="menuPanel"
@@ -56,8 +57,8 @@
       </div>
     </header>
 
-    <section id="menuPanel" class="drawer-panel menu-panel" hidden>
-      <article class="drawer-card drawer-card-wide">
+    <section id="menuPanel" class="drawer-panel menu-panel lcars-capsule" hidden>
+      <article class="drawer-card drawer-card-wide toyist-card">
         <p class="eyebrow">Instellingen</p>
         <h2>Digitale leerbox</h2>
         <div class="setting-grid">
@@ -106,7 +107,7 @@
         <div id="variationNote" class="setting-note"></div>
       </article>
 
-      <article class="drawer-card">
+      <article class="drawer-card toyist-card">
         <p class="eyebrow">Help</p>
         <h2>Speluitleg</h2>
         <p>
@@ -120,7 +121,7 @@
         </p>
       </article>
 
-      <article class="drawer-card">
+      <article class="drawer-card toyist-card">
         <p class="eyebrow">Leerbox</p>
         <h2>Fysieke twin</h2>
         <p>
@@ -132,11 +133,11 @@
           <li>Een groter raster legt de eenzame neuron vaak verder weg.</li>
           <li>Meer startneuronen geven meer bestaande deelstructuren om uit te lezen.</li>
           <li>Een lage filelimiet maakt vastroesten sneller fataal.</li>
-          <li>Rotatie laat dezelfde deelstructuur onder een andere orientatie terugkomen.</li>
+          <li>Rotatie laat dezelfde deelstructuur onder een andere oriëntatie terugkomen.</li>
         </ul>
       </article>
 
-      <article class="drawer-card">
+      <article class="drawer-card toyist-card">
         <p class="eyebrow">Status</p>
         <h2>Laatste trek en signaal</h2>
         <div id="selectedCardSummary" class="choice-summary">
@@ -149,11 +150,11 @@
     </section>
 
     <main class="main-stage">
-      <aside class="card-rail">
+      <aside class="card-rail toyist-card">
         <div class="rail-head">
           <div class="hover-detail">
             <div class="hover-trigger section-word" tabindex="0">Kaarten</div>
-            <div class="hover-bubble">
+            <div class="hover-bubble toyist-card">
               <p id="cardRailMeta">Kies een kaart en bepaal of zij bouwt of ingrijpt.</p>
             </div>
           </div>
@@ -161,18 +162,18 @@
         <div id="candidateRail" class="candidate-rail"></div>
       </aside>
 
-      <section class="board-panel">
+      <section class="board-panel toyist-card">
         <div class="board-head">
           <div class="hover-detail">
             <div class="hover-trigger board-word" tabindex="0">Rasterbrein</div>
-            <div class="hover-bubble hover-bubble-wide">
+            <div class="hover-bubble hover-bubble-wide toyist-card">
               <p class="hover-kicker">Spelbord</p>
               <p id="roundMeta">Ronde 1. Zoek de kaart die nog niet in dit bord besloten ligt.</p>
             </div>
           </div>
         </div>
 
-        <div class="board-frame">
+        <div class="board-frame lego-stud-grid">
           <svg id="boardSvg" viewBox="0 0 1000 1000" aria-label="Rasterbord met neuronen en synapsen"></svg>
         </div>
       </section>
