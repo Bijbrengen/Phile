@@ -12,6 +12,13 @@ test("Phile is een frameworkloze statische website", () => {
   assert.doesNotMatch(html, /(?:src|href)=["'][^"']*(?:astro|react|vue)/i);
 });
 
+test("het centrale thema en canonieke brein komen via LeerpretEngine", () => {
+  const html = read("index.html");
+  assert.match(html, /\/ui\/leerpret-theme\.css/);
+  assert.match(html, /lp-brand-brain/);
+  assert.equal(existsSync(new URL("../leerpret-theme.css", import.meta.url)), false);
+});
+
 test("speldata en Leerobject-klassen komen uitsluitend via de Engine-API", () => {
   const bootstrap = read("bootstrap.js");
   const game = read("script.js");

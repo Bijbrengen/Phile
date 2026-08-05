@@ -4,7 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phile | Leerpret Leerbox</title>
-  <link rel="stylesheet" href="leerpret-theme.css?v=2">
+  <script src="runtime-config.js"></script>
+  <script>
+    (() => {
+      const queryApi = new URLSearchParams(location.search).get("api");
+      const apiBase = String(queryApi || window.PHILE_CONFIG?.apiBase || "").replace(/\/+$/, "");
+      const theme = document.createElement("link");
+      theme.rel = "stylesheet";
+      theme.href = `${apiBase}/ui/leerpret-theme.css`;
+      theme.dataset.leerpretTheme = "engine";
+      document.head.append(theme);
+    })();
+  </script>
   <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body class="lego-stud-grid">
@@ -12,6 +23,10 @@
   <div class="app-shell">
     <header class="topbar lcars-capsule">
       <div class="topbar-brand">
+        <div class="lp-brand-badge" aria-label="Leerpretpark">
+          <span class="lp-brand-brain" aria-hidden="true"></span>
+          <span>Leerpretpark</span>
+        </div>
         <p class="eyebrow brand-prefix">Leerbox</p>
         <div class="hover-detail">
           <h1 class="hover-trigger brand-title" tabindex="0">Phile</h1>
@@ -180,7 +195,6 @@
     </main>
   </div>
 
-  <script src="runtime-config.js"></script>
   <script src="bootstrap.js"></script>
 </body>
 </html>
