@@ -22,9 +22,22 @@ def dotenv(path: Path) -> dict[str, str]:
 
 defaults = dotenv(ROOT / ".env.example")
 local = dotenv(ROOT / ".env")
-api_base = os.getenv("LEERPRET_API_URL") or local.get("LEERPRET_API_URL") or defaults["LEERPRET_API_URL"]
-payload = "window.PHILE_CONFIG = Object.freeze(" + json.dumps(
-    {"apiBase": api_base.rstrip("/"), "clientId": "phile"}, ensure_ascii=False, indent=2
-) + ");\n"
+config = {
+    "localApiBase": os.getenv("LEERPRET_API_URL") or local.get("LEERPRET_API_URL") or defaults["LEERPRET_API_URL"],
+    "productionApiBase": os.getenv("LEERPRET_PRODUCTION_API_URL") or local.get("LEERPRET_PRODUCTION_API_URL") or defaults["LEERPRET_PRODUCTION_API_URL"],
+}
+serialized = json.dumps(config, ensure_ascii=False, indent=2).replace("\n", "\n  ")
+payload = f"""(function() {{
+  var endpoints = Object.freeze({serialized});
+  var isLocal = typeof window !== "undefined" && (
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "localhost"
+  );
+  window.PHILE_CONFIG = Object.freeze({{
+    apiBase: isLocal ? endpoints.localApiBase : endpoints.productionApiBase,
+    clientId: "phile"
+  }});
+}})();
+"""
 (ROOT / "runtime-config.js").write_text(payload, encoding="utf-8")
-print(f"Runtimeconfiguratie geschreven voor {api_base}")
+print("Runtimeconfiguratie geschreven voor lokaal en productie")
