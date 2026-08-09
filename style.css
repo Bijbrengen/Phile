@@ -1,18 +1,18 @@
 :root {
   --bg: var(--lp-color-dark-bg);
-  --bg-deep: #090d16;
+  --bg-deep: var(--lp-color-dark-card);
   --ink: var(--lp-color-text-light);
   --muted: var(--lp-color-text-muted);
-  --surface: rgba(30, 41, 59, 0.92);
-  --surface-strong: #1e293b;
-  --surface-dark: #0f172a;
+  --surface: rgba(37, 26, 36, 0.94);
+  --surface-strong: var(--lp-color-dark-surface);
+  --surface-dark: var(--lp-color-dark-bg);
   --stroke: var(--toyist-stroke-color);
   --accent: var(--lp-color-orange);
   --accent-cool: var(--lp-color-blue);
   --accent-gold: var(--lp-color-yellow);
   --success: var(--lp-color-green);
   --warning: #ef4444;
-  --hole: rgba(255, 255, 255, 0.08);
+  --hole: rgba(247, 244, 238, 0.08);
   --shadow: var(--toyist-shadow-lg);
 }
 
@@ -50,9 +50,9 @@ body {
   color: var(--ink);
   overflow: hidden;
   background:
-    radial-gradient(circle at top left, rgba(249, 115, 22, 0.25), transparent 28%),
-    radial-gradient(circle at right center, rgba(56, 189, 248, 0.2), transparent 26%),
-    linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #090d16 100%);
+    radial-gradient(circle at top left, rgba(104, 69, 100, 0.46), transparent 30%),
+    radial-gradient(circle at right center, rgba(233, 122, 95, 0.13), transparent 28%),
+    linear-gradient(135deg, var(--bg) 0%, var(--surface-strong) 52%, var(--bg-deep) 100%);
 }
 
 .app-shell {
