@@ -29,6 +29,8 @@ geen buildstap en geen Node-runtime nodig.
 ## Leerbox- en eventmodel
 
 Bij het starten haalt `bootstrap.js` eerst het SDK-manifest bij LeerpretEngine op.
+Dezelfde bootstrap mount zo nodig de Google-login uit `auth-client` rechtstreeks
+in Phile. Hiervoor hoeft LeerpretDashboard niet te draaien.
 Daarna laadt het de API-client en de `leerobject`-component rechtstreeks vanaf
 die server. De runtimeconfiguratie komt uit `GET /api/leerbox-runtime/phile`.
 

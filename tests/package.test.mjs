@@ -24,6 +24,9 @@ test("speldata en Leerobject-klassen komen uitsluitend via de Engine-API", () =>
   const game = read("script.js");
   assert.match(bootstrap, /\/sdk\/manifest\.json/);
   assert.match(bootstrap, /sdk\/leerobject\/client\.js/);
+  assert.match(bootstrap, /sdk\/auth-client\/client\.js/);
+  assert.match(bootstrap, /completeGoogleLogin/);
+  assert.match(bootstrap, /mountLogin/);
   assert.match(game, /\/leerbox-runtime\/\$\{LEARNING_BOX_ID\}/);
   assert.match(game, /SelfStartingLeerobject/);
   assert.match(game, /SuccesLeerobject/);
