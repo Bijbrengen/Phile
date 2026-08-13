@@ -6,12 +6,11 @@
   const apiBase = String(queryApi || window.PHILE_CONFIG?.apiBase || "").replace(/\/+$/, "");
   const clientId = window.PHILE_CONFIG?.clientId || "phile";
 
-  function loadScript(url, integrity) {
+  function loadScript(url) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src = url;
       script.crossOrigin = "anonymous";
-      if (integrity) script.integrity = integrity;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`SDK-asset kon niet worden geladen: ${url}`));
       document.head.appendChild(script);
@@ -20,17 +19,11 @@
 
   async function start() {
     if (!apiBase) throw new Error("PHILE_CONFIG.apiBase ontbreekt");
-    const manifestResponse = await fetch(`${apiBase}/sdk/manifest.json`, { mode: "cors", cache: "no-store" });
-    if (!manifestResponse.ok) throw new Error(`SDK-manifest gaf HTTP ${manifestResponse.status}`);
-    const manifest = await manifestResponse.json();
-    const apiAsset = manifest.components?.["api-client"]?.assets?.["client.js"];
-    const authAsset = manifest.components?.["auth-client"]?.assets?.["client.js"];
-    const objectAsset = manifest.components?.leerobject?.assets?.["client.js"];
-    if (!apiAsset || !authAsset || !objectAsset) throw new Error("LeerpretSDK mist api-client, auth-client of leerobject");
-    await loadScript(`${apiBase}/sdk/api-client/client.js`, manifest.components["api-client"].integrity?.["client.js"]);
+    await loadScript(`${apiBase}/sdk/sdk-loader/loader.js`);
+    const loader = LeerpretSDK.Loader.create({ base: apiBase });
+    await loader.load(["api-client", "auth-client", "leerobject"]);
     const client = LeerpretSDK.create({ apiBase, clientId });
     await client.bootstrap();
-    await loadScript(`${apiBase}/sdk/auth-client/client.js`, manifest.components["auth-client"].integrity?.["client.js"]);
     const auth = LeerpretSDK.components["auth-client"].client;
     await auth.completeGoogleLogin({ apiBase, sdkClient: client });
     const access = await auth.ensureSessionAccess({ apiBase, sdkClient: client });
@@ -44,8 +37,7 @@
       return;
     }
     if (access.action !== "allow") throw new Error("De aanmeldstatus kon niet worden gecontroleerd");
-    await loadScript(`${apiBase}/sdk/leerobject/client.js`, manifest.components.leerobject.integrity?.["client.js"]);
-    window.PHILE_BOOTSTRAP = Object.freeze({ apiBase, client, manifest });
+    window.PHILE_BOOTSTRAP = Object.freeze({ apiBase, client, manifest: loader.manifest });
     document.body.dataset.runtime = "ready";
     const game = document.createElement("script");
     game.src = "script.js";

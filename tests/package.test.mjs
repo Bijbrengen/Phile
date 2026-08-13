@@ -22,9 +22,8 @@ test("het centrale thema en canonieke brein komen via LeerpretEngine", () => {
 test("speldata en Leerobject-klassen komen uitsluitend via de Engine-API", () => {
   const bootstrap = read("bootstrap.js");
   const game = read("script.js");
-  assert.match(bootstrap, /\/sdk\/manifest\.json/);
-  assert.match(bootstrap, /sdk\/leerobject\/client\.js/);
-  assert.match(bootstrap, /sdk\/auth-client\/client\.js/);
+  assert.match(bootstrap, /\/sdk\/sdk-loader\/loader\.js/);
+  assert.match(bootstrap, /loader\.load\(\["api-client", "auth-client", "leerobject"\]\)/);
   assert.match(bootstrap, /completeGoogleLogin/);
   assert.match(bootstrap, /mountLogin/);
   assert.match(game, /\/leerbox-runtime\/\$\{LEARNING_BOX_ID\}/);
