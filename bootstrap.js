@@ -19,7 +19,7 @@
 
   async function start() {
     if (!apiBase) throw new Error("PHILE_CONFIG.apiBase ontbreekt");
-    await loadScript(`${apiBase}/sdk/sdk-loader/loader.js`);
+    await loadScript(`${apiBase}/sdk/sdk-loader/loader.js?bootstrap=${Date.now()}`);
     const loader = LeerpretSDK.Loader.create({ base: apiBase });
     await loader.load(["api-client", "auth-client", "leerobject"]);
     const client = LeerpretSDK.create({ apiBase, clientId });

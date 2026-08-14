@@ -23,6 +23,7 @@ test("speldata en Leerobject-klassen komen uitsluitend via de Engine-API", () =>
   const bootstrap = read("bootstrap.js");
   const game = read("script.js");
   assert.match(bootstrap, /\/sdk\/sdk-loader\/loader\.js/);
+  assert.match(bootstrap, /loader\.js\?bootstrap=\$\{Date\.now\(\)\}/);
   assert.match(bootstrap, /loader\.load\(\["api-client", "auth-client", "leerobject"\]\)/);
   assert.match(bootstrap, /completeGoogleLogin/);
   assert.match(bootstrap, /mountLogin/);
